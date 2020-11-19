@@ -78,4 +78,4 @@ pipelines:
         execution:
           onExecute:
             - 'curl -H "Authorization: token ${int_firstGitHub_token}" ${int_firstGitHub_url}/rate_limit'
-            - echo ${int_firstGitHub_token} | ${int_firstGitHub_url}
+           

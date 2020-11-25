@@ -1,4 +1,4 @@
-Pipelines:
+pipelines:
 - name: Matrix_Single_Pipeline
   steps:    
     - name: matrix_example

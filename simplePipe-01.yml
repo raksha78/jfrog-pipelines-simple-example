@@ -1,7 +1,7 @@
 pipelines:
-- name: simplePipe-01
+- name: simplePipe_01
   steps:    
-    - name: simplePipe-01
+    - name: simplePipe_01
       type: Matrix
       stepMode: Bash
       stepletMultipliers:

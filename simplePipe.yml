@@ -1,5 +1,5 @@
 pipelines:
-  - name: pipelines_auto1
+  - name: pipelines_auto11
     steps:
       - name: d_GCP_c8_language
         type: Bash

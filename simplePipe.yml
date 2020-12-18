@@ -5,7 +5,7 @@ pipelines:
       - name: N_DyNodeK8s_A_0020
         type: Bash
         configuration:
-          nodePool: k8
+          nodePool: k8_u20
           runtime:
             type: image
             image:

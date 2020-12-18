@@ -1,14 +1,15 @@
 pipelines:
-- name: Matrix_Single_Pipeline
-  steps:    
-    - name: matrix_example
-      type: Matrix
-      stepMode: Bash
-      stepletMultipliers:
-        environmentVariables:             
-          - animal:    dog                
-            mineral:   copper
-             
-      execution:
-        onExecute:
-          - echo "Variation animal = ${animal}, mineral = ${mineral}, vegetable = ${vegetable}"
+
+  - name: N_DyNodeGCP_0056
+    steps:
+      - name: N_DyNodeGCP_0056
+        type: Bash
+        configuration:
+          nodePool: gcpDy
+          runtime:
+            type: host
+        execution:
+          onExecute:
+            - if [ ! -f "/etc/docker/daemon.json" ]; then echo "could not find docker config file" && exit 1 ; fi
+            - cat /etc/docker/daemon.json
+            - jq -e '."insecure-registries"[]|select(. == "0.0.0.0")' /etc/docker/daemon.json >/dev/null || (echo "could not find insecure registry in docker config" && exit 1)

@@ -1,14 +1,18 @@
-
 pipelines:
 
-  - name: N_DyNodeGCP_0061
+  - name: N_DyNodeK8s_A_0020
     steps:
-      - name: N_DyNodeGCP_0061
+      - name: N_DyNodeK8s_A_0020
         type: Bash
         configuration:
-          nodePool: gcpDy
+          nodePool: k8
           runtime:
-            type: host
+            type: image
+            image:
+              custom:
+                name: docker.bintray.io/jfrog/pipelines-u20node
+                tag: 12.18.2
+                options: '-v /etc/docker/daemon.json:/etc/docker/daemon.json'
         execution:
           onExecute:
             - if [ ! -f "/etc/docker/daemon.json" ]; then echo "could not find docker config file" && exit 1 ; fi

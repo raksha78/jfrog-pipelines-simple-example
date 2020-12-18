@@ -1,20 +1,36 @@
 pipelines:
-
-  - name: N_DyNodeK8s_A_0020
+  - name: S_Matrix_MN_008
     steps:
-      - name: N_DyNodeK8s_A_0020
+
+      - name: S_Matrix_MN_008_001
+        type: Bash
+        execution:
+          onStart:
+            - echo "Step is running"
+
+      - name: S_Matrix_MN_008_002
+        type: Matrix
+        stepMode: Bash
+        configuration:
+          inputSteps:
+            - name: S_Matrix_MN_008_001
+          multiNode: true
+        stepletMultipliers:
+          environmentVariables:
+            - foo: "foo"
+            - foo: "bar"
+            - foo: "baz"
+        execution:
+          onStart:
+            - set_step_var "steplet_info" "Executed matrix steplet - ${steplet_id} on node id - ${step_node_id}"
+          onExecute:
+            - echo "$steplet_info"
+
+      - name: S_Matrix_MN_008_003
         type: Bash
         configuration:
-          nodePool: dyn
-          runtime:
-            type: image
-            image:
-              custom:
-                name: docker.bintray.io/jfrog/pipelines-u20node
-                tag: 12.18.2
-                options: '-v /etc/docker/daemon.json:/etc/docker/daemon.json'
+          inputSteps:
+            - name: S_Matrix_MN_008_002
         execution:
           onExecute:
-            - if [ ! -f "/etc/docker/daemon.json" ]; then echo "could not find docker config file" && exit 1 ; fi
-            - cat /etc/docker/daemon.json
-            - jq -e '."insecure-registries"[]|select(. == "0.0.0.0")' /etc/docker/daemon.json >/dev/null || (echo "could not find insecure registry in docker config" && exit 1)
+            - get_step_var "S_Matrix_MN_008_002" "steplet_info"

@@ -1,0 +1,19 @@
+pipelines:
+- name: Matrix_Single_Pipeline
+  steps:    
+    - name: matrix_example
+      type: Matrix
+      stepMode: Bash
+      stepletMultipliers:
+        environmentVariables:             # Sets of environment variables for steplets
+          - animal:    dog                # - Set 1
+            mineral:   copper
+            vegetable: carrot
+          - animal:    goat               # - Set 2
+            mineral:   iron
+            vegetable: broccoli   
+             
+      execution:
+        onExecute:
+          - echo "Executing matrix step on ${steplet_id}"
+          - echo "Variation animal = ${animal}, mineral = ${mineral}, vegetable = ${vegetable}"

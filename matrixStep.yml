@@ -18,7 +18,7 @@ pipelines:
           inputResources:
             - name: api_in_runs_propertyBag_01
           outputResources:
-            - name: api_out_runs_propertyBag_01
+            - name: api_in_runs_propertyBag_01
         execution:
           onExecute:
             - write_output api_out_runs_propertyBag "pipelines=$run_id"

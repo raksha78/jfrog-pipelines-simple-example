@@ -1,24 +1,26 @@
-resources:
-  - name: api_in_runs_propertyBag_01
-    type: PropertyBag
-    configuration:
-      pipelines: "user_in"
-
-  - name: api_out_runs_propertyBag_02
-    type: PropertyBag
-    configuration:
-      pipelines: "user_out"
-      
 pipelines:
-  - name: api_runs
+  - name: pipeline_affinityGroup_example
+    configuration:
+      environmentVariables:
+        readOnly:
+          MY_DIR: "/tmpdir"
     steps:
-      - name: api_runs_step
+      - name: ag_step_1
         type: Bash
         configuration:
-          inputResources:
-            - name: api_in_runs_propertyBag_01
-          outputResources:
-            - name: api_in_runs_propertyBag_01
+          affinityGroup: together
         execution:
           onExecute:
-            - write_output api_out_runs_propertyBag "pipelines=$run_id"
+            - mkdir $MY_DIR
+            - echo "Running " $pipeline_name "|" $step_name >$MY_DIR/myoutput.txt
+            - cat $MY_DIR/myoutput.txt
+      - name: ag_step_2
+        type: Bash
+        configuration:
+          affinityGroup: together
+          inputSteps:
+             - name: ag_step_1
+        execution:
+          onExecute:
+            - cat $MY_DIR/myoutput.txt
+      

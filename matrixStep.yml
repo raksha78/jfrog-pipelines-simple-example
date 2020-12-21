@@ -1,13 +1,34 @@
 pipelines:
-  - name: basic1
+  - name: pipeline_affinityGroup_example
+    configuration:
+      environmentVariables:
+        readOnly:
+          MY_DIR: "/tmpdir"
     steps:
-      - name: basic
+      - name: ag_step_1
         type: Bash
         configuration:
-          inputResources:
-          runtime:
-            type: host
+          affinityGroup: together
         execution:
           onExecute:
-            - echo lol
-      
+            - mkdir $MY_DIR
+            - echo "Running " $pipeline_name "|" $step_name >$MY_DIR/myoutput.txt
+            - cat $MY_DIR/myoutput.txt
+      - name: ag_step_2
+        type: Bash
+        configuration:
+          affinityGroup: together
+          inputSteps:
+             - name: ag_step_1
+        execution:
+          onExecute:
+            - cat $MY_DIR/myoutput.txt
+      - name: ag_step_3
+        type: Bash
+        configuration:
+#           affinityGroup: together
+          inputSteps:
+             - name: ag_step_2
+        execution:
+          onExecute:
+            - cat $MY_DIR/myoutput.txt

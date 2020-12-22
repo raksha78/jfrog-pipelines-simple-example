@@ -2,7 +2,7 @@ pipelines:
 - name: Matrix_Single_Pipeline
   steps:    
     - name: matrix_example
-      type: Bash
+      type: Matrix
       stepMode: Bash
       stepletMultipliers:
         environmentVariables:             # Sets of environment variables for steplets

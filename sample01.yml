@@ -1,0 +1,25 @@
+resources:
+  - name: myGitRepo
+    type: GitRepo
+    configuration:
+      gitProvider: raksh_git
+      path: raksha78/jfrog-pipelines-simple-example
+      branches:
+        include: master      
+pipelines:  
+  - name: basic_pipeline
+    configuration:
+      environmentVariables:
+        readOnly:
+          my_env_var: "hello"  
+    steps:
+      - name: step_1
+        type: Bash
+        configuration:
+          inputResources:
+            - name: myGitRepo           
+        execution:
+          onExecute:
+            - echo "hello"
+     
+           

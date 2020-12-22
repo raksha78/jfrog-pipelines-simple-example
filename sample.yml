@@ -4,6 +4,7 @@ pipelines:
       - name: basic
         type: Bash
         configuration:
+          inputResources:
           runtime:
             type: host
         execution:

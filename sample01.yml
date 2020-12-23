@@ -2,14 +2,12 @@ resources:
   - name: myGitRepo
     type: GitRepo
     configuration:
-      gitProvider: rak_github
+      gitProvider: raksha78_github
       path: raksha78/jfrog-pipelines-simple-example
       branches:
         include: master      
 pipelines:  
   - name: basic_pipeline
-    configuration:
-      nodePool: u16gcp  
     steps:
       - name: step_1
         type: Bash

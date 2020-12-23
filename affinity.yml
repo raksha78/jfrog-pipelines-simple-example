@@ -14,21 +14,21 @@ pipelines:
             - mkdir $MY_DIR
             - echo "Running " $pipeline_name "|" $step_name >$MY_DIR/myoutput.txt
             - cat $MY_DIR/myoutput.txt
-      - name: ag_step_btw
-        type: Bash
-        configuration:
-          affinityGroup: togetherNO
-          inputSteps:
-             - name: ag_step_1
-        execution:
-          onExecute:
-            - cat $MY_DIR/myoutput.txt
       - name: ag_step_2
         type: Bash
         configuration:
           affinityGroup: together
           inputSteps:
-             - name: ag_step_btw
+             - name: ag_step_1
+        execution:
+          onExecute:
+            - cat $MY_DIR/myoutput.txt
+      - name: ag_step_3
+        type: Bash
+        configuration:
+          affinityGroup: together
+          inputSteps:
+             - name: ag_step_2
         execution:
           onExecute:
             - cat $MY_DIR/myoutput.txt

@@ -17,7 +17,7 @@ pipelines:
       - name: ag_step_btw
         type: Bash
         configuration:
-#           affinityGroup: together
+          affinityGroup: togetherNO
           inputSteps:
              - name: ag_step_1
         execution:

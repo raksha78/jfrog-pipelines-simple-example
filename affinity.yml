@@ -23,15 +23,15 @@ pipelines:
         execution:
           onExecute:
             - cat $MY_DIR/myoutput.txt
-      - name: bad
-        type: Bash
-        configuration:
-          affinityGroup: togetherNO
-          inputSteps:
-             - name: ag_step_2
-        execution:
-          onExecute:
-            - cat $MY_DIR/myoutput.txt
+#       - name: bad
+#         type: Bash
+#         configuration:
+#           affinityGroup: togetherNO
+#           inputSteps:
+#              - name: ag_step_2
+#         execution:
+#           onExecute:
+#             - cat $MY_DIR/myoutput.txt
       - name: ag_step_3
         type: Bash
         configuration:

@@ -1,0 +1,14 @@
+pipelines:
+- name: simplePipe_03
+  steps:    
+    - name: simplePipe_03
+      type: Matrix
+      stepMode: Bash
+      stepletMultipliers:
+        environmentVariables:             
+          - animal:    dog                
+            mineral:   copper
+             
+      execution:
+        onExecute:
+          - echo "Variation animal = ${animal}, mineral = ${mineral}, vegetable = ${vegetable}"
